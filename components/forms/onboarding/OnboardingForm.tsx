@@ -4,7 +4,7 @@ import Logo from '@/public/logo.png';
 import { Card, CardContent } from '@/components/ui/card';
 import { useState } from 'react';
 import { UserTypeSelection } from './UserTypeForm';
-import { CompanyForm } from './Companyform';
+import { CompanyForm } from './CompanyForm';
 
 type UserSelectionType = 'company' | 'jobSeeker' | null;
 
