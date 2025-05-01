@@ -34,7 +34,7 @@ model User {
 }
 
 enum UserType {
-  Company
+  COMPANY
   JOB_SEEKER
 }
 
