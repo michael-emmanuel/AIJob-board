@@ -43,3 +43,6 @@ next-env.d.ts
 lib/generated/prisma/
 # OR if using default output
 .prisma/
+
+
+/STEPS.md
