@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -33,17 +34,36 @@ import { Button } from '../ui/button';
 import { XIcon } from 'lucide-react';
 import { UploadDropzone } from '../general/UploadThingReexported';
 import { JobListDuration } from '../general/JobListingDurationSelector';
+import { createJob } from '@/app/actions';
+import { useState } from 'react';
 
-export function CreateJobForm() {
+interface iAppProps {
+  companyLocation: string;
+  companyName: string;
+  companyAbout: string;
+  companyLogo: string;
+  companyWebsite: string;
+  companyXAccount: string | null;
+}
+
+export function CreateJobForm({
+  companyAbout,
+  companyLocation,
+  companyLogo,
+  companyName,
+  companyWebsite,
+  companyXAccount,
+}: iAppProps) {
   const form = useForm<z.infer<typeof jobSchema>>({
     resolver: zodResolver(jobSchema),
     defaultValues: {
       benefits: [],
-      companyAbout: '',
-      companyLocation: '',
-      companyName: '',
-      companyWebsite: '',
-      companyXAccount: '',
+      companyAbout: companyAbout,
+      companyLocation: companyLocation,
+      companyName: companyName,
+      companyLogo: companyLogo,
+      companyWebsite: companyWebsite,
+      companyXAccount: companyXAccount || '',
       employmentType: '',
       jobDescription: '',
       jobTitle: '',
@@ -53,9 +73,28 @@ export function CreateJobForm() {
       salaryTo: 0,
     },
   });
+
+  const [pending, setPending] = useState(false);
+
+  async function onSubmit(values: z.infer<typeof jobSchema>) {
+    try {
+      setPending(true);
+      await createJob(values);
+    } catch (error) {
+      if (error instanceof Error && error.message !== 'NEXT_REDIRECT') {
+        console.log('Something went wrong');
+      }
+    } finally {
+      setPending(false);
+    }
+  }
+
   return (
     <Form {...form}>
-      <form className='col-span-1 lg:col-span-2 flex flex-col gap-8'>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className='col-span-1 lg:col-span-2 flex flex-col gap-8'
+      >
         <Card>
           <CardHeader>
             <CardTitle>Job Information</CardTitle>
@@ -202,6 +241,7 @@ export function CreateJobForm() {
                     <FormControl>
                       <Input placeholder='Company name' {...field} />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -255,6 +295,7 @@ export function CreateJobForm() {
                     <FormControl>
                       <Input placeholder='Company Website' {...field} />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -268,6 +309,7 @@ export function CreateJobForm() {
                     <FormControl>
                       <Input placeholder='Company X Account' {...field} />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -285,6 +327,7 @@ export function CreateJobForm() {
                       className='min-h-[120px]'
                     />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -355,8 +398,8 @@ export function CreateJobForm() {
             />
           </CardContent>
         </Card>
-        <Button type='submit' className='w-full'>
-          Post Job
+        <Button type='submit' className='w-full' disabled={pending}>
+          {pending ? 'Submitting' : 'Create Job Post'}
         </Button>
       </form>
     </Form>
