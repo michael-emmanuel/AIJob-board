@@ -32,6 +32,7 @@ import Image from 'next/image';
 import { Button } from '../ui/button';
 import { XIcon } from 'lucide-react';
 import { UploadDropzone } from '../general/UploadThingReexported';
+import { JobListDuration } from '../general/JobListingDurationSelector';
 
 export function CreateJobForm() {
   const form = useForm<z.infer<typeof jobSchema>>({
@@ -335,6 +336,28 @@ export function CreateJobForm() {
             />
           </CardContent>
         </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Job Listing Duration</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <FormField
+              control={form.control}
+              name='listingDuration'
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <JobListDuration field={field as any} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </CardContent>
+        </Card>
+        <Button type='submit' className='w-full'>
+          Post Job
+        </Button>
       </form>
     </Form>
   );
