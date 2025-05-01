@@ -111,14 +111,14 @@ model VerificationToken {
 model JobPost {
   id String @id @default(uuid())
 
-  jobTitle       String
-  employmentType String
-  location       String
-  salaryFrom     Int
-  salaryTo       Int
-  jobDescription String
-  listingDuraton Int
-  benefits       String[]
+  jobTitle        String
+  employmentType  String
+  location        String
+  salaryFrom      Int
+  salaryTo        Int
+  jobDescription  String
+  listingDuration Int
+  benefits        String[]
 
   status JobPostStatus @default(DRAFT)
 
