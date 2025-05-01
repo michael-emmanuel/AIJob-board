@@ -22,7 +22,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  stripeCustomerId String?
+  stripeCustomerId String? @unique
 
   userType UserType?
 
@@ -122,7 +122,7 @@ model JobPost {
   listingDuration Int
   benefits        String[]
 
-  status JobPostStatus @default(DRAFT)
+  status JobPostStatus @default(DRAFT) // on successful payment, move to ACTIVE, using webhook
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
