@@ -52,7 +52,7 @@ export async function POST(req: Request) {
 
     await prisma.jobPost.update({
       where: {
-        id: '',
+        id: jobId,
         companyId: company?.Company?.id as string,
       },
       data: {
