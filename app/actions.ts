@@ -24,7 +24,7 @@ const aj = arcjet
 // By default a server action creates a public HTTP endpoint
 export async function createCompany(data: z.infer<typeof companySchema>) {
   const session = await requireUser();
-
+  // begin arcjet security...
   const req = await request();
 
   const decision = await aj.protect(req);
@@ -32,7 +32,7 @@ export async function createCompany(data: z.infer<typeof companySchema>) {
   if (decision.isDenied()) {
     throw new Error('Forbidden');
   }
-
+  // end arcjet security
   const validateData = companySchema.parse(data);
 
   await prisma.user.update({
@@ -55,7 +55,15 @@ export async function createCompany(data: z.infer<typeof companySchema>) {
 
 export async function createJobSeeker(data: z.infer<typeof jobSeekerSchema>) {
   const user = await requireUser();
+  // begin arcjet security...
+  const req = await request();
 
+  const decision = await aj.protect(req);
+
+  if (decision.isDenied()) {
+    throw new Error('Forbidden');
+  }
+  // end arcjet security...
   const validateData = jobSeekerSchema.parse(data);
 
   await prisma.user.update({
