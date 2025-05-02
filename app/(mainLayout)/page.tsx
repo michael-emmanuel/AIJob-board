@@ -20,12 +20,15 @@ export default async function Home({ searchParams }: SearchParams) {
   const currentPage = Number(params.page) || 1;
   const jobTypes = params.jobTypes?.split(',') || [];
   const location = params.location || '';
+  const filterKey = `page=${currentPage};types=${jobTypes.join(
+    ','
+  )};location=${location}`;
 
   return (
     <div className='grid grid-cols-3 gap-8'>
       <JobFilter />
       <div className='col-span-2 flex flex-col gap-6'>
-        <Suspense fallback={<JobListingLoading />} key={currentPage}>
+        <Suspense fallback={<JobListingLoading />} key={filterKey}>
           <JobListings
             currentPage={currentPage}
             jobTypes={jobTypes}
