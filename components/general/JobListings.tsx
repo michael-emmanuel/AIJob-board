@@ -9,10 +9,12 @@ async function getData({
   page = 1,
   pageSize = 2,
   jobTypes = [],
+  location = '',
 }: {
   page: number;
   pageSize: number;
   jobTypes: string[];
+  location: string;
 }) {
   const skip = (page - 1) * pageSize;
 
@@ -24,6 +26,10 @@ async function getData({
         in: jobTypes,
       },
     }),
+    ...(location &&
+      location !== 'worldwide' && {
+        location: location,
+      }),
   };
 
   const [data, totalCount] = await Promise.all([
@@ -68,14 +74,17 @@ async function getData({
 export async function JobListings({
   currentPage,
   jobTypes,
+  location,
 }: {
   currentPage: number;
   jobTypes: string[];
+  location: string;
 }) {
   const { jobs, totalPages } = await getData({
     page: currentPage,
     pageSize: 2,
     jobTypes: jobTypes,
+    location: location,
   });
   return (
     <>

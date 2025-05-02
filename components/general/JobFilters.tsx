@@ -26,6 +26,7 @@ export function JobFilter() {
 
   // get current filters from the URL
   const currentJobTypes = searchParams.get('jobTypes')?.split(',') || [];
+  const currentLocation = searchParams.get('location') || '';
 
   function clearAllFilters() {
     router.push('/');
@@ -59,6 +60,10 @@ export function JobFilter() {
     const newValue = Array.from(current).join(',');
 
     router.push(`?${createQueryString('jobTypes', newValue)}`);
+  }
+
+  function handleLocationChange(location: string) {
+    router.push(`?${createQueryString('location', location)}`);
   }
 
   return (
@@ -101,7 +106,12 @@ export function JobFilter() {
         <div className='space-y-4'>
           <Label className='text-lg font-semibold'>Location</Label>
 
-          <Select>
+          <Select
+            onValueChange={location => {
+              handleLocationChange(location);
+            }}
+            value={currentLocation}
+          >
             <SelectTrigger>
               <SelectValue placeholder='Select Location' />
             </SelectTrigger>
