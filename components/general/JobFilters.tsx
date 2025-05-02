@@ -1,3 +1,4 @@
+'use client';
 import { XIcon } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
@@ -14,15 +15,27 @@ import {
   SelectValue,
 } from '../ui/select';
 import { countryList } from '@/app/utils/countriesList';
+import { useRouter } from 'next/navigation';
 
 const jobTypes = ['full-time', 'part-time', 'contract', 'internship'];
 
 export function JobFilter() {
+  const router = useRouter();
+
+  function clearAllFilters() {
+    router.push('/');
+  }
+
   return (
     <Card className='col-span-1 h-fit'>
       <CardHeader className='flex flex-row justify-between items-center'>
         <CardTitle className='text-2xl font-semibold'>Filters</CardTitle>
-        <Button variant='destructive' size='sm' className='h-8'>
+        <Button
+          onClick={clearAllFilters}
+          variant='destructive'
+          size='sm'
+          className='h-8'
+        >
           <span>Clear All</span>
           <XIcon className='size-4' />
         </Button>
