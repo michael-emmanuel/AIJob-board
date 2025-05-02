@@ -15,15 +15,50 @@ import {
   SelectValue,
 } from '../ui/select';
 import { countryList } from '@/app/utils/countriesList';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useCallback } from 'react';
 
 const jobTypes = ['full-time', 'part-time', 'contract', 'internship'];
 
 export function JobFilter() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // get current filters from the URL
+  const currentJobTypes = searchParams.get('jobTypes')?.split(',') || [];
 
   function clearAllFilters() {
     router.push('/');
+  }
+
+  // useCallback to cache
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+
+      if (value) {
+        params.set(name, value);
+      } else {
+        params.delete(name);
+      }
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
+  function handleJobTypeChange(jobType: string, checked: boolean) {
+    const current = new Set(currentJobTypes);
+
+    if (checked) {
+      current.add(jobType);
+    } else {
+      current.delete(jobType);
+    }
+
+    const newValue = Array.from(current).join(',');
+
+    router.push(`?${createQueryString('jobTypes', newValue)}`);
   }
 
   return (
@@ -47,7 +82,13 @@ export function JobFilter() {
           <div className='grid grid-cols-2 gap-4'>
             {jobTypes.map((job, index) => (
               <div key={index} className='flex items-center space-x-2'>
-                <Checkbox id={job} />
+                <Checkbox
+                  onCheckedChange={checked => {
+                    handleJobTypeChange(job, checked as boolean);
+                  }}
+                  id={job}
+                  checked={currentJobTypes.includes(job)}
+                />
                 <Label className='text-sm font-medium' htmlFor={job}>
                   {job}
                 </Label>
