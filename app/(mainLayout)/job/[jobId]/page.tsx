@@ -1,3 +1,4 @@
+import arcjet, { detectBot, fixedWindow } from '@/app/utils/arcjet';
 import { getFlagEmoji } from '@/app/utils/countriesList';
 import { prisma } from '@/app/utils/db';
 import { benefits } from '@/app/utils/listOfBenefits';
@@ -6,9 +7,26 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+import { request } from '@arcjet/next';
 import { Heart } from 'lucide-react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+
+// prevent bad bots from scraping data
+const aj = arcjet
+  .withRule(
+    detectBot({
+      mode: 'LIVE',
+      allow: ['CATEGORY:SEARCH_ENGINE', 'CATEGORY:PREVIEW'],
+    })
+  )
+  .withRule(
+    fixedWindow({
+      mode: 'LIVE',
+      max: 10,
+      window: '60s',
+    })
+  );
 
 async function getJob(jobId: string) {
   const jobData = await prisma.jobPost.findUnique({
@@ -45,6 +63,13 @@ async function getJob(jobId: string) {
 type Params = Promise<{ jobId: string }>; // jobId corresponds to folder name containing this page.tsx
 export default async function JobIdPage({ params }: { params: Params }) {
   const { jobId } = await params;
+
+  const req = await request();
+  const decision = await aj.protect(req);
+  if (decision.isDenied()) {
+    throw new Error('forbidden');
+  }
+
   const data = await getJob(jobId);
 
   const locationFlag = getFlagEmoji(data.location);
