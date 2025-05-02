@@ -15,7 +15,7 @@ import { revalidatePath } from 'next/cache';
 const aj = arcjet
   .withRule(
     shield({
-      // see what it blocks ... docs.arcjet.com/shield/concepts
+      // see what it blocks ... docs.arcjet.com/shield/concepts xss, sqli
       mode: 'LIVE',
     })
   )
@@ -247,4 +247,42 @@ export async function unSavejobPost(savedJobPostId: string) {
   });
 
   revalidatePath(`/job/${data.jobPostId}`);
+}
+
+export async function editJobPost(
+  data: z.infer<typeof jobSchema>,
+  jobId: string
+) {
+  const user = await requireUser();
+
+  const req = await request();
+
+  const decision = await aj.protect(req);
+
+  if (decision.isDenied()) {
+    throw new Error('Forbidden');
+  }
+
+  const validateData = jobSchema.parse(data);
+
+  await prisma.jobPost.update({
+    where: {
+      id: jobId,
+      Company: {
+        userId: user.id,
+      },
+    },
+    data: {
+      jobDescription: validateData.jobDescription,
+      jobTitle: validateData.jobTitle,
+      employmentType: validateData.employmentType,
+      location: validateData.location,
+      salaryFrom: validateData.salaryFrom,
+      salaryTo: validateData.salaryTo,
+      listingDuration: validateData.listingDuration, // this does not change
+      benefits: validateData.benefits,
+    },
+  });
+
+  return redirect('/my-jobs');
 }

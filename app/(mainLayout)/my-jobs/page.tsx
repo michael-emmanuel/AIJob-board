@@ -1,5 +1,6 @@
 import { prisma } from '@/app/utils/db';
 import { requireUser } from '@/app/utils/requireUser';
+import { CopyLinkMenuItem } from '@/components/general/CopyLink';
 import { EmptyState } from '@/components/general/EmptyState';
 import { Button } from '@/components/ui/button';
 import {
@@ -91,7 +92,7 @@ export default async function MyJobPage() {
                   <TableHead>Job Title</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Created at</TableHead>
-                  <TableHead>Actions</TableHead>
+                  <TableHead className='text-right'>Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -119,7 +120,7 @@ export default async function MyJobPage() {
                         year: 'numeric',
                       })}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className='text-right'>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button variant={'ghost'} size={'icon'}>
@@ -134,12 +135,9 @@ export default async function MyJobPage() {
                               Edit Job
                             </Link>
                           </DropdownMenuItem>
-                          <DropdownMenuItem asChild>
-                            <Link href={`/my-jobs/${listing.id}/edit`}>
-                              <CopyCheckIcon />
-                              Copy Job URL
-                            </Link>
-                          </DropdownMenuItem>
+                          <CopyLinkMenuItem
+                            jobUrl={`${process.env.NEXT_PUBLIC_URL}/job/${listing.id}`}
+                          />
                           <DropdownMenuSeparator />
                           <DropdownMenuItem asChild>
                             <Link href={`/my-jobs/${listing.id}/delete`}>
