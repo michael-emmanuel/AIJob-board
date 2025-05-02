@@ -27,7 +27,7 @@ interface iAppProps {
 export function JobCard({ job }: iAppProps) {
   return (
     <Link href={`/job`}>
-      <Card>
+      <Card className='hover:shadow-lg transition-all duration-300 hover:border-primary'>
         <CardHeader>
           <div className='flex flex-col md:flex-row gap-4'>
             <Image
@@ -63,8 +63,8 @@ export function JobCard({ job }: iAppProps) {
               </div>
             </div>
 
-            <div className='md:ml-auto'>
-              <div className='flex items-center gap-2'>
+            <div className='md:ml-auto text-right'>
+              <div className='flex items-center gap-2 justify-end'>
                 <MapPin className='size-4' />
                 <h1 className='whitespace-nowrap'>{job.location}</h1>
               </div>
@@ -73,6 +73,12 @@ export function JobCard({ job }: iAppProps) {
                 {formatRelevativeTime(job.createdAt)}
               </p>
             </div>
+          </div>
+
+          <div>
+            <p className='text-base text-muted-foreground line-clamp-2 !mt-5'>
+              {job.Company.about}
+            </p>
           </div>
         </CardHeader>
       </Card>
