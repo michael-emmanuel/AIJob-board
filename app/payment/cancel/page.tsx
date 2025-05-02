@@ -1,7 +1,7 @@
 import { requireUser } from '@/app/utils/requireUser';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Check, XIcon } from 'lucide-react';
+import { XIcon } from 'lucide-react';
 import Link from 'next/link';
 
 export default async function PaymentCancelled() {

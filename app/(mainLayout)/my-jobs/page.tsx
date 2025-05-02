@@ -26,12 +26,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import {
-  CopyCheckIcon,
-  MoreHorizontal,
-  PenBoxIcon,
-  XCircle,
-} from 'lucide-react';
+import { MoreHorizontal, PenBoxIcon, XCircle } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 

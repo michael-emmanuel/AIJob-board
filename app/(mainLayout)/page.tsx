@@ -1,8 +1,6 @@
 import { JobFilter } from '@/components/general/JobFilters';
 import { JobListings } from '@/components/general/JobListings';
 import { JobListingLoading } from '@/components/general/JobListingsLoading';
-import { Card } from '@/components/ui/card';
-import Image from 'next/image';
 import { Suspense } from 'react';
 
 type SearchParams = {

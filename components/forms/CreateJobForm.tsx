@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -190,7 +189,6 @@ export function CreateJobForm({
                     control={form.control}
                     minSalary={10000}
                     maxSalary={1000000}
-                    currency='USD'
                     step={2000}
                   />
                 </FormControl>

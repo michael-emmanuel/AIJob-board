@@ -1,9 +1,5 @@
 import { savejobPost, unSavejobPost } from '@/app/actions';
-import arcjet, {
-  detectBot,
-  fixedWindow,
-  tokenBucket,
-} from '@/app/utils/arcjet';
+import arcjet, { detectBot, tokenBucket } from '@/app/utils/arcjet';
 import { auth } from '@/app/utils/auth';
 import { getFlagEmoji } from '@/app/utils/countriesList';
 import { prisma } from '@/app/utils/db';

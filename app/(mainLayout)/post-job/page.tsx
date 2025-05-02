@@ -123,7 +123,7 @@ export default async function PostJobPage() {
                     className='border-l-2 border-primary pl-4'
                   >
                     <p className='text-sm text-muted-foreground italic'>
-                      "{testimonial.quote}"
+                      &quot;{testimonial.quote}&quot;
                     </p>
                     <footer className='mt-2 text-sm font-medium'>
                       - {testimonial.author}, {testimonial.company}
