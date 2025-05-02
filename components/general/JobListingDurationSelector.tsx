@@ -6,7 +6,7 @@ import { Card } from '../ui/card';
 import { cn } from '@/lib/utils';
 
 interface iAppProps {
-  field: ControllerRenderProps;
+  field: ControllerRenderProps<any, 'listingDuration'>;
 }
 
 export function JobListDuration({ field }: iAppProps) {

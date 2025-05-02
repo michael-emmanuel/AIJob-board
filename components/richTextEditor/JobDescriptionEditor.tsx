@@ -7,7 +7,7 @@ import TextTypography from '@tiptap/extension-typography';
 import { ControllerRenderProps } from 'react-hook-form';
 
 interface iAppProps {
-  field: ControllerRenderProps;
+  field: ControllerRenderProps<any>;
 }
 
 export function JobDescriptionEditor({ field }: iAppProps) {

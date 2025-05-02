@@ -3,7 +3,7 @@ import { Badge } from '../ui/badge';
 import { ControllerRenderProps } from 'react-hook-form';
 
 interface iAppProps {
-  field: ControllerRenderProps;
+  field: ControllerRenderProps<any>;
 }
 
 export function BenefitsSelector({ field }: iAppProps) {

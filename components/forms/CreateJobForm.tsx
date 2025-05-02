@@ -202,7 +202,7 @@ export function CreateJobForm({
                 <FormItem>
                   <FormLabel>Job Description</FormLabel>
                   <FormControl>
-                    <JobDescriptionEditor field={field as any} />
+                    <JobDescriptionEditor field={field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -216,7 +216,7 @@ export function CreateJobForm({
                 <FormItem>
                   <FormLabel>Benefits</FormLabel>
                   <FormControl>
-                    <BenefitsSelector field={field as any} />
+                    <BenefitsSelector field={field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -388,7 +388,7 @@ export function CreateJobForm({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <JobListDuration field={field as any} />
+                    <JobListDuration field={field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

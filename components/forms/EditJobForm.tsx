@@ -207,7 +207,7 @@ export function EditJobForm({ jobPost }: iAppProps) {
                 <FormItem>
                   <FormLabel>Job Description</FormLabel>
                   <FormControl>
-                    <JobDescriptionEditor field={field as any} />
+                    <JobDescriptionEditor field={field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -221,7 +221,7 @@ export function EditJobForm({ jobPost }: iAppProps) {
                 <FormItem>
                   <FormLabel>Benefits</FormLabel>
                   <FormControl>
-                    <BenefitsSelector field={field as any} />
+                    <BenefitsSelector field={field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
