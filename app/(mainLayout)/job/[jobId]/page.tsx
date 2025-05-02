@@ -1,4 +1,9 @@
-import arcjet, { detectBot, fixedWindow } from '@/app/utils/arcjet';
+import arcjet, {
+  detectBot,
+  fixedWindow,
+  tokenBucket,
+} from '@/app/utils/arcjet';
+import { auth } from '@/app/utils/auth';
 import { getFlagEmoji } from '@/app/utils/countriesList';
 import { prisma } from '@/app/utils/db';
 import { benefits } from '@/app/utils/listOfBenefits';
@@ -13,20 +18,37 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 // prevent bad bots from scraping data
-const aj = arcjet
-  .withRule(
-    detectBot({
-      mode: 'LIVE',
-      allow: ['CATEGORY:SEARCH_ENGINE', 'CATEGORY:PREVIEW'],
-    })
-  )
-  .withRule(
-    fixedWindow({
-      mode: 'LIVE',
-      max: 10,
-      window: '60s',
-    })
-  );
+const aj = arcjet.withRule(
+  detectBot({
+    mode: 'LIVE',
+    allow: ['CATEGORY:SEARCH_ENGINE', 'CATEGORY:PREVIEW'],
+  })
+);
+
+function getClient(session: boolean) {
+  if (session) {
+    // give user more refill if authenticated
+    // when going to PROD change from DRY_RUN to LIVE
+    // DRY_RUN will only console.log requests, not block
+    return aj.withRule(
+      tokenBucket({
+        mode: 'DRY_RUN',
+        capacity: 100,
+        interval: 60,
+        refillRate: 30,
+      })
+    );
+  } else {
+    return aj.withRule(
+      tokenBucket({
+        mode: 'DRY_RUN',
+        capacity: 100,
+        interval: 60,
+        refillRate: 10,
+      })
+    );
+  }
+}
 
 async function getJob(jobId: string) {
   const jobData = await prisma.jobPost.findUnique({
@@ -63,9 +85,12 @@ async function getJob(jobId: string) {
 type Params = Promise<{ jobId: string }>; // jobId corresponds to folder name containing this page.tsx
 export default async function JobIdPage({ params }: { params: Params }) {
   const { jobId } = await params;
+  const session = await auth();
 
   const req = await request();
-  const decision = await aj.protect(req);
+
+  const decision = await getClient(!!session).protect(req, { requested: 10 });
+
   if (decision.isDenied()) {
     throw new Error('forbidden');
   }
