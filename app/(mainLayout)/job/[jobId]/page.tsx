@@ -1,3 +1,4 @@
+import { savejobPost, unSavejobPost } from '@/app/actions';
 import arcjet, {
   detectBot,
   fixedWindow,
@@ -8,13 +9,15 @@ import { getFlagEmoji } from '@/app/utils/countriesList';
 import { prisma } from '@/app/utils/db';
 import { benefits } from '@/app/utils/listOfBenefits';
 import { JsonToHtml } from '@/components/general/JsonToHtml';
+import { SaveJobButton } from '@/components/general/SubmitButtons';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { request } from '@arcjet/next';
 import { Heart } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 // prevent bad bots from scraping data
@@ -50,36 +53,53 @@ function getClient(session: boolean) {
   }
 }
 
-async function getJob(jobId: string) {
-  const jobData = await prisma.jobPost.findUnique({
-    where: {
-      status: 'ACTIVE',
-      id: jobId,
-    },
-    select: {
-      jobTitle: true,
-      jobDescription: true,
-      location: true,
-      employmentType: true,
-      benefits: true,
-      createdAt: true,
-      listingDuration: true,
-      Company: {
-        select: {
-          name: true,
-          logo: true,
-          location: true,
-          about: true,
+async function getJob(jobId: string, userId?: string) {
+  // run queries in parallel
+  const [jobData, savedJob] = await Promise.all([
+    await prisma.jobPost.findUnique({
+      where: {
+        status: 'ACTIVE',
+        id: jobId,
+      },
+      select: {
+        jobTitle: true,
+        jobDescription: true,
+        location: true,
+        employmentType: true,
+        benefits: true,
+        createdAt: true,
+        listingDuration: true,
+        Company: {
+          select: {
+            name: true,
+            logo: true,
+            location: true,
+            about: true,
+          },
         },
       },
-    },
-  });
+    }),
+
+    userId
+      ? prisma.savedJobPost.findUnique({
+          where: {
+            userId_jobPostId: {
+              userId: userId,
+              jobPostId: jobId,
+            },
+          },
+          select: {
+            id: true,
+          },
+        })
+      : null,
+  ]);
 
   if (!jobData) {
     return notFound();
   }
 
-  return jobData;
+  return { jobData, savedJob };
 }
 
 type Params = Promise<{ jobId: string }>; // jobId corresponds to folder name containing this page.tsx
@@ -95,7 +115,7 @@ export default async function JobIdPage({ params }: { params: Params }) {
     throw new Error('forbidden');
   }
 
-  const data = await getJob(jobId);
+  const { jobData: data, savedJob } = await getJob(jobId, session?.user?.id);
 
   const locationFlag = getFlagEmoji(data.location);
   return (
@@ -120,10 +140,29 @@ export default async function JobIdPage({ params }: { params: Params }) {
             </div>
           </div>
 
-          <Button variant={'outline'}>
+          {/* <Button variant={'outline'}>
             <Heart className='size-4' />
             Save Job
-          </Button>
+          </Button> */}
+          {session?.user ? (
+            <form
+              action={
+                savedJob
+                  ? unSavejobPost.bind(null, savedJob.id)
+                  : savejobPost.bind(null, jobId)
+              }
+            >
+              <SaveJobButton savedJob={!!savedJob} />
+            </form>
+          ) : (
+            <Link
+              href='/login'
+              className={buttonVariants({ variant: 'outline' })}
+            >
+              <Heart className='size-4' />
+              Save Job
+            </Link>
+          )}
         </div>
         <section>
           <JsonToHtml json={JSON.parse(data.jobDescription)} />
