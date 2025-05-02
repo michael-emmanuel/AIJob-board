@@ -89,6 +89,7 @@ export async function createJobSeeker(data: z.infer<typeof jobSeekerSchema>) {
 }
 
 export async function createJob(data: z.infer<typeof jobSchema>) {
+  console.log('Create new job');
   const user = await requireUser();
   // begin arcjet security...
   const req = await request();
@@ -282,6 +283,35 @@ export async function editJobPost(
       listingDuration: validateData.listingDuration, // this does not change
       benefits: validateData.benefits,
     },
+  });
+
+  return redirect('/my-jobs');
+}
+
+export async function deleteJobPost(jobId: string) {
+  const session = await requireUser();
+
+  const req = await request();
+
+  const decision = await aj.protect(req);
+
+  if (decision.isDenied()) {
+    throw new Error('Forbiden');
+  }
+
+  await prisma.jobPost.delete({
+    where: {
+      id: jobId,
+      Company: {
+        userId: session.id,
+      },
+    },
+  });
+
+  // cancel the excution of inngest long running task
+  await inngest.send({
+    name: 'job/cancel.expiration',
+    data: { jobId: jobId },
   });
 
   return redirect('/my-jobs');
