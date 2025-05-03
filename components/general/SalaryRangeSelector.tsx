@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { formatCurrency } from '@/app/utils/formatCurrency';
 
 interface iAppProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any>;
   minSalary: number;
   maxSalary: number;

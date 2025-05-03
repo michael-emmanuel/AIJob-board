@@ -7,6 +7,7 @@ import TextTypography from '@tiptap/extension-typography';
 import { ControllerRenderProps } from 'react-hook-form';
 
 interface iAppProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   field: ControllerRenderProps<any>;
 }
 
