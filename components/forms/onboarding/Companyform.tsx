@@ -49,7 +49,7 @@ export function CompanyForm() {
       setPending(true);
       await createCompany(data);
     } catch (error) {
-      // do not catch error if redirect from app/actions.ts
+      // don't catch error if redirect from app/actions.ts
       if (error instanceof Error && error.message !== 'NEXT_REDIRECT') {
         console.log('Something went wrong');
       }
