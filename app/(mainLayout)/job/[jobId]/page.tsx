@@ -31,7 +31,7 @@ function getClient(session: boolean) {
     // DRY_RUN will only console.log requests, not block
     return aj.withRule(
       tokenBucket({
-        mode: 'DRY_RUN',
+        mode: 'LIVE',
         capacity: 100,
         interval: 60,
         refillRate: 30,
@@ -40,7 +40,7 @@ function getClient(session: boolean) {
   } else {
     return aj.withRule(
       tokenBucket({
-        mode: 'DRY_RUN',
+        mode: 'LIVE',
         capacity: 100,
         interval: 60,
         refillRate: 10,
