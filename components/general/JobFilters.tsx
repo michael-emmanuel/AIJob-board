@@ -1,10 +1,10 @@
 'use client';
 import { XIcon } from 'lucide-react';
-import { Button } from '../ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Label } from '../ui/label';
-import { Checkbox } from '../ui/checkbox';
-import { Separator } from '../ui/separator';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Separator } from '@/components/ui/separator';
 import {
   Select,
   SelectContent,
@@ -13,7 +13,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '../ui/select';
+} from '@/components/ui/select';
 import { countryList } from '@/app/utils/countriesList';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';

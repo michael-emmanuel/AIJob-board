@@ -1,6 +1,6 @@
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { MenuBar } from './MenuBar';
+import { MenuBar } from '@/components/richTextEditor/MenuBar';
 import TextAlign from '@tiptap/extension-text-align';
 import TextUnderline from '@tiptap/extension-underline';
 import TextTypography from '@tiptap/extension-typography';

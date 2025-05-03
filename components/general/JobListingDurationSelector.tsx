@@ -1,8 +1,8 @@
 import { ControllerRenderProps } from 'react-hook-form';
-import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { jobListingDurationPricing } from '@/app/utils/jobListingDurationPricing';
-import { Label } from '../ui/label';
-import { Card } from '../ui/card';
+import { Label } from '@/components/ui/label';
+import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
 interface iAppProps {

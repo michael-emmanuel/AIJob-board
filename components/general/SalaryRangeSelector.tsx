@@ -1,5 +1,5 @@
 import { Control, useController } from 'react-hook-form';
-import { Slider } from '../ui/slider';
+import { Slider } from '@/components/ui/slider';
 import { useState } from 'react';
 import { formatCurrency } from '@/app/utils/formatCurrency';
 

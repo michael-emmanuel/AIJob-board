@@ -1,5 +1,5 @@
 import { benefits } from '@/app/utils/listOfBenefits';
-import { Badge } from '../ui/badge';
+import { Badge } from '@/components/ui/badge';
 import { ControllerRenderProps } from 'react-hook-form';
 
 interface iAppProps {

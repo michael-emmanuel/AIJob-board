@@ -1,7 +1,7 @@
 import { prisma } from '@/app/utils/db';
-import { EmptyState } from './EmptyState';
-import { JobCard } from './JobCard';
-import { MainPagination } from './MainPagination';
+import { EmptyState } from '@/components/general/EmptyState';
+import { JobCard } from '@/components/general/JobCard';
+import { MainPagination } from '@/components/general/MainPagination';
 import { JobPostStatus } from '@prisma/client';
 
 // pageSize - number of listings to show per page

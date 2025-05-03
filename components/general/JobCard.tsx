@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { Card, CardHeader } from '../ui/card';
+import { Card, CardHeader } from '@/components/ui/card';
 import { MapPin } from 'lucide-react';
 import Image from 'next/image';
-import { Badge } from '../ui/badge';
+import { Badge } from '@/components/ui/badge';
 import { formatCurrency } from '@/app/utils/formatCurrency';
 import { formatRelevativeTime } from '@/app/utils/formatRelativeTime';
 

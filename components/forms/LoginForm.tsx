@@ -5,10 +5,10 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '../ui/card';
+} from '@/components/ui/card';
 import * as React from 'react';
 import type { SVGProps } from 'react';
-import { GeneralSubmitButton } from '../general/SubmitButtons';
+import { GeneralSubmitButton } from '@/components/general/SubmitButtons';
 import { redirect } from 'next/navigation';
 const GitHub = (props: SVGProps<SVGSVGElement>) => (
   <svg

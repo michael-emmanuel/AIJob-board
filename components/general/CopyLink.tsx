@@ -1,6 +1,6 @@
 'use client';
 import { Link2 } from 'lucide-react';
-import { DropdownMenuItem } from '../ui/dropdown-menu';
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { toast } from 'sonner';
 
 export function CopyLinkMenuItem({ jobUrl }: { jobUrl: string }) {

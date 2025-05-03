@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import Logo from '@/public/logo.png';
 import Image from 'next/image';
-import { buttonVariants } from '../ui/button';
-import { ThemeToggle } from './ThemeToggle';
+import { buttonVariants } from '@/components/ui/button';
+import { ThemeToggle } from '@/components/general/ThemeToggle';
 import { auth } from '@/app/utils/auth';
-import { UserDropdown } from './UserDropdown';
+import { UserDropdown } from '@/components/general/UserDropdown';
 
 export async function Navbar() {
   const session = await auth();

@@ -1,10 +1,10 @@
 'use client';
 
 import { countryList } from '@/app/utils/countriesList';
-import { BenefitsSelector } from '../general/BenefitsSelector';
-import { SalaryRangeSelector } from '../general/SalaryRangeSelector';
-import { JobDescriptionEditor } from '../richTextEditor/JobDescriptionEditor';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { BenefitsSelector } from '@/components/general/BenefitsSelector';
+import { SalaryRangeSelector } from '@/components/general/SalaryRangeSelector';
+import { JobDescriptionEditor } from '@/components/richTextEditor/JobDescriptionEditor';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Form,
   FormControl,
@@ -12,8 +12,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form';
-import { Input } from '../ui/input';
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -22,18 +22,18 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '../ui/select';
+} from '@/components/ui/select';
 import Image from 'next/image';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import { XIcon } from 'lucide-react';
-import { UploadDropzone } from '../general/UploadThingReexported';
+import { UploadDropzone } from '@/components/general/UploadThingReexported';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { jobSchema } from '@/app/utils/zodSchemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { editJobPost } from '@/app/actions';
-import { Textarea } from '../ui/textarea';
+import { Textarea } from '@/components/ui/textarea';
 
 interface iAppProps {
   jobPost: {

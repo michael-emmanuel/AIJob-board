@@ -3,9 +3,9 @@ import Image from 'next/image';
 import Logo from '@/public/logo.png';
 import { Card, CardContent } from '@/components/ui/card';
 import { useState } from 'react';
-import { UserTypeSelection } from './UserTypeForm';
-import { CompanyForm } from './CompanyForm';
-import { JobSeekerForm } from './JobSeekerForm';
+import { UserTypeSelection } from '@/components/forms/onboarding/UserTypeForm';
+import { CompanyForm } from '@/components/forms/onboarding/CompanyForm';
+import { JobSeekerForm } from '@/components/forms/onboarding/JobSeekerForm';
 
 type UserSelectionType = 'company' | 'jobSeeker' | null;
 

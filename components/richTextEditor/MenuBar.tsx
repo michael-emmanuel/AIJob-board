@@ -4,8 +4,8 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '../ui/tooltip';
-import { Toggle } from '../ui/toggle';
+} from '@/components/ui/tooltip';
+import { Toggle } from '@/components/ui/toggle';
 import {
   AlignCenterIcon,
   AlignLeftIcon,
@@ -23,7 +23,7 @@ import {
   Undo,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 
 interface iAppProps {
   editor: Editor | null;

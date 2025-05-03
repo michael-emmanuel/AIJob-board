@@ -12,8 +12,8 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { jobSchema } from '@/app/utils/zodSchemas';
 import { z } from 'zod';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Input } from '../ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -24,15 +24,15 @@ import {
   SelectValue,
 } from '../ui/select';
 import { countryList } from '@/app/utils/countriesList';
-import { SalaryRangeSelector } from '../general/SalaryRangeSelector';
-import { JobDescriptionEditor } from '../richTextEditor/JobDescriptionEditor';
-import { BenefitsSelector } from '../general/BenefitsSelector';
-import { Textarea } from '../ui/textarea';
+import { SalaryRangeSelector } from '@/components/general/SalaryRangeSelector';
+import { JobDescriptionEditor } from '@/components/richTextEditor/JobDescriptionEditor';
+import { BenefitsSelector } from '@/components/general/BenefitsSelector';
+import { Textarea } from '@/components/ui/textarea';
 import Image from 'next/image';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import { XIcon } from 'lucide-react';
-import { UploadDropzone } from '../general/UploadThingReexported';
-import { JobListDuration } from '../general/JobListingDurationSelector';
+import { UploadDropzone } from '@/components/general/UploadThingReexported';
+import { JobListDuration } from '@/components/general/JobListingDurationSelector';
 import { createJob } from '@/app/actions';
 import { useState } from 'react';
 

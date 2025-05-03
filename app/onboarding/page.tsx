@@ -1,7 +1,7 @@
 import { OnboardingForm } from '@/components/forms/onboarding/OnboardingForm';
-import { prisma } from '../utils/db';
+import { prisma } from '@/app/utils/db';
 import { redirect } from 'next/navigation';
-import { requireUser } from '../utils/requireUser';
+import { requireUser } from '@/app/utils/requireUser';
 
 async function checkIfUserHasFinishedOnboarding(userId: string) {
   const user = await prisma.user.findUnique({
