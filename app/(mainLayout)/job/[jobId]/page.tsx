@@ -252,7 +252,7 @@ export default async function JobIdPage({ params }: { params: Params }) {
           </div>
         </Card>
 
-        {/* Company Card*/}
+        {/* Company Card */}
         <Card className='p-6'>
           <div className='space-y-4'>
             <div className='flex items-center gap-3'>
