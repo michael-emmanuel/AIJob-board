@@ -196,7 +196,7 @@ export default async function JobIdPage({ params }: { params: Params }) {
         <Card className='p-6'>
           <div className='space-y-4'>
             <div>
-              <h3 className='font-semibold'>Apply Now</h3>
+              <h3 className='font-semibold'>Apply Now!</h3>
               <p className='text-sm text-muted-foreground mt-1'>
                 Please let {data.Company.name} know you found this job on AI Job
                 Board. This helps us grow!
