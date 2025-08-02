@@ -10,7 +10,7 @@ export default function Login() {
         <Link href='/' className='flex items-center gap-2 self-center'>
           <Image src={Logo} alt='logo' className='size-10' />
           <h1 className='text-2xl font-bold'>
-            Job<span className='text-primary'>Board</span>
+            Job<span className='text-primary'>Genius</span>
           </h1>
         </Link>
         <LoginForm />

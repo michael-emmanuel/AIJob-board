@@ -35,7 +35,7 @@ export function OnboardingForm() {
       <div className='flex items-center gap-4 mb-10'>
         <Image src={Logo} alt='jobboard logo' width={50} height={50} />
         <h1 className='text-4xl font-bold'>
-          Job<span className='text-primary'>Board</span>
+          Job<span className='text-primary'>Genius</span>
         </h1>
       </div>
 
